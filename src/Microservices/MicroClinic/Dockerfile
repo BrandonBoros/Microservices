@@ -6,21 +6,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Copy only MicroClinic CSPROJ (correct relative path from Dockerfile location)
-COPY ../../Microservices/MicroClinic/*.csproj MicroClinic/
+COPY ./MicroClinic.csproj .
 
-# If Clinic project is referenced:
-COPY ../../Microservices/Clinic/*.csproj Clinic/
+RUN dotnet restore "MicroClinic.csproj"
 
-# If Microservices project is referenced:
-COPY ../../Microservices/Microservices/*.csproj Microservices/
+COPY . .
 
-RUN dotnet restore "MicroClinic/MicroClinic.csproj"
-
-# Copy all source code
-COPY ../../Microservices ./ 
-
-WORKDIR "/src/Microservices/MicroClinic"
 RUN dotnet build "MicroClinic.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
@@ -30,4 +21,5 @@ RUN dotnet publish "MicroClinic.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
 ENTRYPOINT ["dotnet", "MicroClinic.dll"]
