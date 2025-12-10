@@ -27,3 +27,13 @@ jobs:
         run: |
           docker build src -f src/Microservices/Microservices/Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ env.DATE_TIME }}.${{ github.run_number }}
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ env.DATE_TIME }}.${{ github.run_number }}
+
+      - name: Deploy to Container Apps
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          acrName: ${{ secrets.ARC_USERNAME }}
+          acrUsername: ${{ secrets.ARC_USERNAME }}
+          acrPassword: ${{ secrets.ARC_PASSWORD }}
+          containerAppName: microservices
+          resourceGroup: wpm
+          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ env.DATE_TIME }}.${{ github.run_number }}
