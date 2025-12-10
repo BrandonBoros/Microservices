@@ -12,3 +12,15 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: 'Log in to ACR'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ARC_USERNAME }}
+          password: ${{ secrets.ARC_PASSWORD }}
+
+      - name: 'Build and push container image'
+        run: |
+          docker build src -f src.Microservices/Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ github.sha }}
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ github.sha }}
