@@ -22,5 +22,5 @@ jobs:
 
       - name: 'Build and push container image'
         run: |
-          docker build src -f src.Microservices/Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ github.sha }}
+          docker build src -f src/Microservices/Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ github.sha }}
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ github.sha }}
