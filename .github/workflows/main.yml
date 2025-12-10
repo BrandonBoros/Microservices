@@ -37,3 +37,4 @@ jobs:
           containerAppName: microservices
           resourceGroup: wpm
           imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/microservices:${{ env.DATE_TIME }}.${{ github.run_number }}
+          environmentVariables: Logging_LogLevel_Microsoft.EntityFrameworkCore=Debug
