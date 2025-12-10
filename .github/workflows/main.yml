@@ -50,7 +50,7 @@ jobs:
           acrName: ${{ secrets.ARC_USERNAME }}
           acrUsername: ${{ secrets.ARC_USERNAME }}
           acrPassword: ${{ secrets.ARC_PASSWORD }}
-          containerAppName: microservices
+          containerAppName: wpm-clinic
           resourceGroup: wpm
           imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/wpm-clinic-api:${{ env.DATE_TIME }}.${{ github.run_number }}
           environmentVariables: Logging_LogLevel_Microsoft.EntityFrameworkCore=Debug, Wpm__ManagementUri=http://microservices
