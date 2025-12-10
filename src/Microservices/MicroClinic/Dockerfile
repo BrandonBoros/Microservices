@@ -8,9 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["Microservices/Microservices/MicroClinic.csproj", "Microservices/MicroClinic/"]
+COPY ["Microservices/MicroClinic/MicroClinic.csproj", "Microservices/MicroClinic/"]
 
-RUN dotnet restore "./Microservices/Microservices/MicroClinic.csproj"
+RUN dotnet restore "./Microservices/MicroClinic/MicroClinic.csproj"
 
 COPY . .
 
