@@ -10,10 +10,12 @@ WORKDIR /src
 
 COPY ["Microservices/Microservices/Microservices.csproj", "Microservices/Microservices/"]
 
-RUN dotnet restore "./Microservices/Microservices.csproj"
+RUN dotnet restore "./Microservices/Microservices/Microservices.csproj"
+
 COPY . .
 
 WORKDIR "/src/Microservices/Microservices"
+
 RUN dotnet build "./Microservices.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
